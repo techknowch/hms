@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PatientModule } from './patient/patient.module';
 import { Patient } from './entities/patient.entity';
+import { ValidationService } from './common/validation/validation.service';
 
 @Module({
   imports: [
@@ -19,6 +20,6 @@ import { Patient } from './entities/patient.entity';
     }),
     PatientModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ValidationService],
 })
 export class AppModule { }
