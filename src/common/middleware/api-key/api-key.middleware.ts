@@ -3,6 +3,7 @@ import { Injectable, NestMiddleware, UnauthorizedException, Logger } from '@nest
 import { Request, Response, NextFunction } from 'express';
 import { ConfigService } from '@nestjs/config';
 
+
 @Injectable()
 export class ApiKeyMiddleware implements NestMiddleware {
   private readonly logger = new Logger(ApiKeyMiddleware.name);
