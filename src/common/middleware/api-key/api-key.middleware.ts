@@ -1,8 +1,19 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Injectable, NestMiddleware, UnauthorizedException } from '@nestjs/common';
+import { Request, Response, NextFunction } from 'express';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class ApiKeyMiddleware implements NestMiddleware {
-  use(req: any, res: any, next: () => void) {
-    next();
+  constructor(private readonly configService: ConfigService) { }
+
+  use(req: Request, res: Response, next: NextFunction) {
+    const apiKey = req.headers['x-api-key'];
+    const validApiKey = this.configService.get<string>('API_KEY'); // Get API key from environment
+
+    if (apiKey === validApiKey) {
+      next();
+    } else {
+      throw new UnauthorizedException('Invalid API key');
+    }
   }
 }
