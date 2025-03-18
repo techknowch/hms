@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { PatientService } from './patient.service';
 import { Patient } from 'src/entities/patient.entity';
+import { CreatePatientDto } from './dto/create-patient.dto';
 
 @Controller('patient')
 export class PatientController {
@@ -18,8 +19,8 @@ export class PatientController {
     ) { }
 
     @Post()
-    async create(@Body() patientData: Partial<Patient>): Promise<Patient> {
-        return this.patientService.create(patientData);
+    async create(@Body() createPatientDto: CreatePatientDto): Promise<Patient> {
+        return this.patientService.create(createPatientDto);
     }
 
-}
+}           
