@@ -6,7 +6,8 @@ import { PatientModule } from './modules/patient/patient.module';
 import { Patient } from './entities/patient.entity';
 import { ConfigModule } from '@nestjs/config';
 import { ApiKeyMiddleware } from './common/middleware/api-key/api-key.middleware';
-import { ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 
 @Module({
@@ -26,13 +27,18 @@ import { ThrottlerModule } from '@nestjs/throttler';
       throttlers: [
         {
           ttl: 60, // Time-to-live in seconds
-          limit: 10, // Maximum number of requests within TTL
+          limit: 5, // Maximum number of requests within TTL
         },
       ],
     }),
     PatientModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard, // Apply ThrottlerGuard globally
+    }
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

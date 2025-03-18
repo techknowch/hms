@@ -5,9 +5,9 @@ import {
     Body,
     Param,
     Put,
-    Delete,
-    NotFoundException
+    Delete
 } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import { PatientService } from './patient.service';
 import { Patient } from '../../entities/patient.entity';
 import { CreatePatientDto } from './dto/create-patient.dto';
@@ -18,10 +18,24 @@ export class PatientController {
         private readonly patientService: PatientService
     ) { }
 
+    @Throttle({
+        default: {
+            limit: 5,
+            ttl: 10000,
+        },
+    }) // Max 5 requests per 10 seconds for this route
+
     @Post()
     async create(@Body() createPatientDto: CreatePatientDto): Promise<Patient> {
         return this.patientService.create(createPatientDto);
     }
+
+    @Throttle({
+        default: {
+            limit: 5,
+            ttl: 10000,
+        },
+    }) // Max 5 requests per 10 seconds for this route
 
     @Get()
     async findAll(): Promise<Patient[]> {
