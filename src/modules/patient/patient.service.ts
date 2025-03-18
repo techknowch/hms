@@ -39,4 +39,17 @@ export class PatientService {
         return patient;
     }
 
+    // Update a patient
+    async update(id: number, updateData: Partial<Patient>): Promise<Patient> {
+        const patient = await this.findOne(id);
+        Object.assign(patient, updateData);
+        return this.patientRepository.save(patient);
+    }
+
+    // Delete a patient
+    async remove(id: number): Promise<void> {
+        const patient = await this.findOne(id);
+        await this.patientRepository.remove(patient);
+    }
+
 }

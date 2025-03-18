@@ -33,4 +33,19 @@ export class PatientController {
         return this.patientService.findOne(id);
     }
 
+    // Update a patient
+    @Put(':id')
+    async update(
+        @Param('id') id: number,
+        @Body() updateData: Partial<Patient>,
+    ): Promise<Patient> {
+        return this.patientService.update(id, updateData);
+    }
+
+    // Delete a patient
+    @Delete(':id')
+    async remove(@Param('id') id: number): Promise<void> {
+        return this.patientService.remove(id);
+    }
+
 }           
