@@ -28,4 +28,9 @@ export class PatientController {
         return this.patientService.findAll();
     }
 
+    @Get(':id')
+    async findOne(@Param('id') id: number): Promise<Patient> {
+        return this.patientService.findOne(id);
+    }
+
 }           
