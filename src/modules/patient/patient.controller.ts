@@ -9,7 +9,7 @@ import {
     NotFoundException
 } from '@nestjs/common';
 import { PatientService } from './patient.service';
-import { Patient } from 'src/entities/patient.entity';
+import { Patient } from '../../entities/patient.entity';
 import { CreatePatientDto } from './dto/create-patient.dto';
 
 @Controller('patient')
@@ -21,6 +21,11 @@ export class PatientController {
     @Post()
     async create(@Body() createPatientDto: CreatePatientDto): Promise<Patient> {
         return this.patientService.create(createPatientDto);
+    }
+
+    @Get()
+    async findAll(): Promise<Patient[]> {
+        return this.patientService.findAll();
     }
 
 }           
