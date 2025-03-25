@@ -3,7 +3,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PatientModule } from './modules/patient/patient.module';
+import { DoctorModule } from './modules/doctor/doctor.module';
 import { Patient } from './entities/patient.entity';
+import { Doctor } from './entities/doctor.entity';
 import { ConfigModule } from '@nestjs/config';
 import { ApiKeyMiddleware } from './common/middleware/api-key/api-key.middleware';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
@@ -19,7 +21,7 @@ import { APP_GUARD } from '@nestjs/core';
       username: 'alinaqvi',
       password: 'dev',
       database: 'healthcare_db',
-      entities: [Patient],
+      entities: [Patient, Doctor],
       synchronize: true
     }),
     ConfigModule.forRoot(), // Load environment variables
@@ -31,7 +33,9 @@ import { APP_GUARD } from '@nestjs/core';
         },
       ],
     }),
-    PatientModule],
+    PatientModule,
+    DoctorModule
+  ],
   controllers: [AppController],
   providers: [AppService,
     {
@@ -40,7 +44,7 @@ import { APP_GUARD } from '@nestjs/core';
     }
   ],
 })
-export class AppModule {
+export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(ApiKeyMiddleware)
