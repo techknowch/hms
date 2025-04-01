@@ -4,8 +4,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PatientModule } from './modules/patient/patient.module';
 import { DoctorModule } from './modules/doctor/doctor.module';
+import { DoctorProfileModule } from './modules/doctor-profile/doctor-profile.module';
 import { Patient } from './entities/patient.entity';
 import { Doctor } from './entities/doctor.entity';
+import { DoctorProfile } from './entities/doctor-profile.entity';
 import { ConfigModule } from '@nestjs/config';
 import { ApiKeyMiddleware } from './common/middleware/api-key/api-key.middleware';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
@@ -14,14 +16,15 @@ import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
+    DoctorProfileModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      username: 'alinaqvi',
-      password: 'dev',
+      username: 'admin',
+      password: 'alinaqvi',
       database: 'healthcare_db',
-      entities: [Patient, Doctor],
+      entities: [Patient, Doctor, DoctorProfile],
       synchronize: true
     }),
     ConfigModule.forRoot(), // Load environment variables
