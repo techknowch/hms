@@ -21,9 +21,9 @@ import { APP_GUARD } from '@nestjs/core';
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      username: 'admin',
+      username: 'alinaqvi',
       password: 'alinaqvi',
-      database: 'healthcare_db',
+      database: 'hms',
       entities: [Patient, Doctor, DoctorProfile],
       synchronize: true
     }),
