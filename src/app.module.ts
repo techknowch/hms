@@ -12,7 +12,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ApiKeyMiddleware } from './common/middleware/api-key/api-key.middleware';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
-import { AppointmentModule } from './appointment/appointment.module';
+import { AppointmentModule } from './modules/appointment/appointment.module';
 
 
 @Module({
