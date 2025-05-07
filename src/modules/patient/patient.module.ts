@@ -8,6 +8,7 @@ import { ValidationService } from '../../common/validation/validation.service';
 @Module({
   imports: [TypeOrmModule.forFeature([Patient])],
   controllers: [PatientController],
-  providers: [PatientService, ValidationService]
+  providers: [PatientService, ValidationService],
+  exports: [PatientService]
 })
 export class PatientModule { }

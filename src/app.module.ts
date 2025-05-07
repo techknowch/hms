@@ -13,6 +13,7 @@ import { ApiKeyMiddleware } from './common/middleware/api-key/api-key.middleware
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { AppointmentModule } from './modules/appointment/appointment.module';
+import { Appointment } from './entities/appointment.entity';
 
 
 @Module({
@@ -25,7 +26,7 @@ import { AppointmentModule } from './modules/appointment/appointment.module';
       username: 'alinaqvi',
       password: 'alinaqvi',
       database: 'hms',
-      entities: [Patient, Doctor, DoctorProfile],
+      entities: [Patient, Doctor, DoctorProfile, Appointment],
       synchronize: true
     }),
     ConfigModule.forRoot(), // Load environment variables
